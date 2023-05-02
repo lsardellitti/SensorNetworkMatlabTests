@@ -18,8 +18,21 @@ for thetaIndex = 1:length(thetaVals)
     recvPoints = sendPoints + noise;
     errors = 0;
 
-    % decoding for Aw=As=1, P0=0.5
+    % simplified decoding for P0=0.5
+    % For more precision use original expression
+    for i = 1:trials
+        A = dot([recvPoints(i,1),recvPoints(i,2)]-centerPoint, (abs(w0) + w1)/2)*2/N0;
+        B = dot([recvPoints(i,1),recvPoints(i,2)]-centerPoint, (abs(s0) + s1)/2)*2/N0;
+        decoded = sign(B)*(tanh(A)/tanh(B)) > sign(B)*((K0-K1)/(K1+K0));
+        if decoded ~= source(i)
+            errors = errors + 1;
+        end
+    end
+    
+    % decoding for fixed decision region thetaDR Aw=As=1, P0=0.5
     % should probably use original expression instead of simplified one
+%     theta = thetaDR;
+%     BaseSetup;
 %     for i = 1:trials
 %         A = dot([recvPoints(i,1),recvPoints(i,2)], w1)*2/N0;
 %         B = dot([recvPoints(i,1),recvPoints(i,2)], s1)*2/N0;
@@ -28,19 +41,6 @@ for thetaIndex = 1:length(thetaVals)
 %             errors = errors + 1;
 %         end
 %     end
-    
-    % decoding for fixed decision region thetaDR Aw=As=1, P0=0.5
-    % should probably use original expression instead of simplified one
-    theta = thetaDR;
-    BaseSetup;
-    for i = 1:trials
-        A = dot([recvPoints(i,1),recvPoints(i,2)], w1)*2/N0;
-        B = dot([recvPoints(i,1),recvPoints(i,2)], s1)*2/N0;
-        decoded = sign(B)*(tanh(A)/tanh(B)) > sign(B)*((K0-K1)/(K1+K0));
-        if decoded ~= source(i)
-            errors = errors + 1;
-        end
-    end
     
     % map decoding from original expression
 %     for i = 1:trials

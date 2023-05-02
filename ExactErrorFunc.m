@@ -12,8 +12,8 @@ for thetaIndex = 1:length(thetaVals)
     a11pdf = @(a,b) mvnpdf([a.',b.'], a11, eye(2)*(N0/2)).';
     
     % testing constant decision regions
-    theta =  thetaDR;
-    BaseSetup;
+%     theta =  thetaDR;
+%     BaseSetup;
     
     ybound = @(a) (N0/(2*Ps*sin(theta)))*(atanh(tanh(2*a*Pw/N0)*(K0+K1)/(K0-K1)) - 2*a*Ps*cos(theta)/N0);
     xBound = abs((N0/(2*Pw))*atanh((K0-K1)/(K0+K1)));
@@ -27,8 +27,8 @@ for thetaIndex = 1:length(thetaVals)
     end
     
     % testing constant decision regions, put back to normal
-    theta = thetaVals(thetaIndex);
-    BaseSetup;
+%     theta = thetaVals(thetaIndex);
+%     BaseSetup;
     
     e00 = integral2(a00pdf,-xBound,xBound,lowerYBound,upperYBound) + (1 - normcdf((a00(1) + xBound)/sqrt(N0/2)));
     e01 = integral2(a01pdf,-xBound,xBound,lowerYBound,upperYBound) + (1 - normcdf((a01(1) + xBound)/sqrt(N0/2)));

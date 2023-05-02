@@ -2,14 +2,14 @@ theta = 0.5;
 BaseSetup;
 
 gridDensity = 150;
-gridBound = Pw+Ps;
+gridBound = max(abs(points),[],"all") * 1.1;
 x = linspace(-gridBound,gridBound,gridDensity);
 y = linspace(-gridBound,gridBound,gridDensity);
 X = zeros(gridDensity^2,1);
 Y = zeros(gridDensity^2,1);
 closest = zeros(gridDensity^2,1);
 
-% map decoding regions for 0,1
+% map decoding regions for source bits (0 or 1)
 for i = 1:gridDensity
     for j = 1:gridDensity
         distances = zeros(length(points),1);
@@ -25,16 +25,14 @@ for i = 1:gridDensity
     end
 end
 
-% region test for p=0.5, alpha=1
+% region test for p=0.5
 % closestTheory = zeros(gridDensity^2,1);
-
-% need to make this more robust
+% 
 % for i = 1:gridDensity
 %     for j = 1:gridDensity
-%         A = dot([x(i),y(j)], w1)*2/N0;
-%         B = dot([x(i),y(j)], s1)*2/N0;
+%         A = dot([x(i),y(j)]-centerPoint, (abs(w0) + w1)/2)*2/N0;
+%         B = dot([x(i),y(j)]-centerPoint, (abs(s0) + s1)/2)*2/N0;
 %         if sign(B)*(tanh(A)/tanh(B)) > sign(B)*((K0-K1)/(K1+K0))
-% %         if C1*sinh(A+B) > C2*sinh(-A+B)
 %             closestTheory((i-1)*gridDensity + j) = 1;
 %         else
 %             closestTheory((i-1)*gridDensity + j) = 0;
@@ -57,7 +55,7 @@ end
 %     end
 % end
 
-% closest distance colouring
+% closest distance colouring of constellation points
 % for i = 1:gridDensity
 %     for j = 1:gridDensity
 %     distances = zeros(length(points),1);
