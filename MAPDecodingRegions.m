@@ -78,6 +78,8 @@ figure
 hold on
 scatter(X,Y,2,closest,'filled');
 scatter(constX,constY,20,'red','filled');
+scatter(centerPoint(1),centerPoint(2),20,'green','filled');
+scatter(0,0,20,'black','filled');
 
 % add point labels
 textXoff = -0.2;
