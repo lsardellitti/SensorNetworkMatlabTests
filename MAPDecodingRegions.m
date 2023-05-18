@@ -40,53 +40,6 @@ end
 %     end
 % end
 
-% exact error derivative integral integrand sign
-% a11IntegrandSign = zeros(gridDensity^2,1);
-% a01IntegrandSign = zeros(gridDensity^2,1);
-% totalIntegrandSign = zeros(gridDensity^2,1);
-% 
-% a01pdf = @(a,b) mvnpdf([a.',b.'], a01, eye(2)*(N0/2)).';
-% a11pdf = @(a,b) mvnpdf([a.',b.'], a11, eye(2)*(N0/2)).';
-% a01Integrand = @(a,b) (2/N0)*(-Ps*sin(theta)*(a+Pw-Ps*cos(theta))+Ps*cos(theta)*(b-Ps*sin(theta))).*a01pdf(a,b);
-% a11Integrand = @(a,b) (2/N0)*(-Ps*sin(theta)*(a-Pw-Ps*cos(theta))+Ps*cos(theta)*(b-Ps*sin(theta))).*a11pdf(a,b);
-% 
-% for i = 1:gridDensity
-%     for j = 1:gridDensity
-%         a11IntegrandSign((i-1)*gridDensity + j) = a11Integrand(x(i),y(j)) ;%>= 0;
-%         a01IntegrandSign((i-1)*gridDensity + j) = a01Integrand(x(i),y(j)) ;%>= 0;
-%         totalIntegrandSign((i-1)*gridDensity + j) = (1-Es-Ew)*a11Integrand(x(i),y(j)) - (Es-Ew)*a01Integrand(x(i),y(j)) >= 0;
-%     end
-% end
-
-% map decoding regions for constellation points
-% for i = 1:gridDensity
-%     for j = 1:gridDensity
-%         weights = zeros(length(points),1);
-%         for k = 1:length(points)
-%            distance = norm([x(i), y(j)] - points(k,:))^2; 
-%            weights(k) = pc(k)*exp(-distance/N0);
-%         end
-%         [~, I] = max(weights);
-%         X((i-1)*gridDensity + j) = x(i);
-%         Y((i-1)*gridDensity + j) = y(j);
-%         closest((i-1)*gridDensity + j) = I;
-%     end
-% end
-
-% closest distance colouring of constellation points
-% for i = 1:gridDensity
-%     for j = 1:gridDensity
-%     distances = zeros(length(points),1);
-%         for k = 1:length(points)
-%            distances(k) = norm([x(i), y(j)] - points(k,:)); 
-%         end
-%         [~, I] = min(distances);
-%         X((i-1)*gridDensity + j) = x(i);
-%         Y((i-1)*gridDensity + j) = y(j);
-%         closest((i-1)*gridDensity + j) = I;
-%     end
-% end
-
 % constellation points
 constX = points(:,1);
 constY = points(:,2);
@@ -115,17 +68,3 @@ text(constX(4)+textXoff,constY(4)+textYoff,'{\it a}_{11}','Color',textColor,'Fon
 % scatter(X,Y,2,closestTheory,'filled');
 % scatter(constX,constY,20,'red','filled');
 
-% figure
-% hold on
-% scatter(X,Y,2,a11IntegrandSign,'filled');
-% scatter(constX,constY,20,'red','filled');
-% 
-% figure
-% hold on
-% scatter(X,Y,2,a01IntegrandSign,'filled');
-% scatter(constX,constY,20,'red','filled');
-% 
-% figure
-% hold on
-% scatter(X,Y,2,totalIntegrandSign,'filled');
-% scatter(constX,constY,20,'red','filled');
