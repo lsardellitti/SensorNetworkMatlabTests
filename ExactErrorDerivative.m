@@ -1,4 +1,4 @@
-thetaVals = linspace(0,pi/2,50);
+thetaVals = linspace(0,pi/2,100);
 tailDeriv01Vals = zeros(1, length(thetaVals));
 tailDeriv11Vals = zeros(1, length(thetaVals));
 integralDeriv01Vals = zeros(1, length(thetaVals));
