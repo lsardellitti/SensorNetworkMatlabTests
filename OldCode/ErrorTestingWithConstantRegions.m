@@ -29,6 +29,19 @@ for thetaIndex = 1:length(thetaVals)
         end
     end
     
+    % decoding for fixed decision region thetaDR Aw=As=1, P0=0.5
+    % should probably use original expression instead of simplified one
+%     theta = thetaDR;
+%     BaseSetup;
+%     for i = 1:trials
+%         A = dot([recvPoints(i,1),recvPoints(i,2)], w1)*2/N0;
+%         B = dot([recvPoints(i,1),recvPoints(i,2)], s1)*2/N0;
+%         decoded = sign(B)*(tanh(A)/tanh(B)) > sign(B)*((K0-K1)/(K1+K0));
+%         if decoded ~= source(i)
+%             errors = errors + 1;
+%         end
+%     end
+    
     % map decoding from original expression
 %     for i = 1:trials
 %         distances = zeros(length(points),1);
@@ -40,6 +53,28 @@ for thetaIndex = 1:length(thetaVals)
 %         [~, decoded] = max([weight0, weight1]);
 %         
 %         if (decoded-1) ~= source(i)
+%             errors = errors + 1;
+%         end
+%     end
+    
+    % decoding on imaginary axis (upper bound)
+%     for i = 1:trials
+%         decoded = recvPoints(i,1) > 0;
+%         if decoded ~= source(i)
+%             errors = errors + 1;
+%         end
+%     end
+    
+    % decoding on assyptote (lower bound)
+%     planeX = abs((N0/(2*Pw))*atanh((K0-K1)/(K0+K1)));
+%     for i = 1:trials
+%         if source(i) == 1
+%             decisionPlane = -planeX;
+%         else
+%             decisionPlane = planeX;
+%         end
+%         decoded = recvPoints(i,1) > decisionPlane;
+%         if decoded ~= source(i)
 %             errors = errors + 1;
 %         end
 %     end
