@@ -20,20 +20,13 @@ for i = 1:gridDensity
 %         weight0 = P0*(sum(pc0.*(exp(-distances/N0))));
 %         weight1 = P1*(sum(pc1.*(exp(-distances/N0))));
 
-        % Setup for numeric expected value computation
-        distanceFunc = @(a,k) (x(i) - a*points(k,1)).^2 + (y(j) - a*points(k,2)).^2;
-        fadePdf = @(a) raylpdf(a,sigma);
         condProbVals = zeros(length(points),1);
         
         for k = 1:length(points)
             a = -(norm(points(k,:))^2)/N0 - 1/(2*sigma^2);
             b = 2*(x(i)*points(k,1) + y(j)*points(k,2))/N0;
             c = -norm([x(i) y(j)])^2 / N0;
-%             condProbVals(k) = -exp(c)/(2*a) + (sqrt(pi)*b*exp(c-(b^2)/(4*a))/(4*(-a)^(3/2)))*(erf(b/(2*sqrt(-a))) + 1);
             condProbVals(k) = -exp(c)/(2*a) + (sqrt(pi)*b*exp(c-(b^2)/(4*a))/(2*(-a)^(3/2)))*normcdf(b/(sqrt(-2*a)));
-            % Numerically computing expected value
-%             integrand = @(a) exp(-distanceFunc(a,k)/N0).*fadePdf(a);
-%             condProbVals(k) = integral(integrand,0,inf); 
         end
         weight0 = P0*(sum(pc0.*condProbVals));
         weight1 = P1*(sum(pc1.*condProbVals));
