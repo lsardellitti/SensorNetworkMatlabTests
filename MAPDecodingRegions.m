@@ -1,8 +1,9 @@
-theta = 0.5;
+theta = pi/4;
 BaseSetup;
 
 gridDensity = 150;
-gridBound = max(abs(points),[],"all") * 1.1;
+pointSize = 2;
+gridBound = max(abs(points),[],"all") * 1.5;
 x = linspace(-gridBound,gridBound,gridDensity);
 y = linspace(-gridBound,gridBound,gridDensity);
 X = zeros(gridDensity^2,1);
@@ -12,12 +13,31 @@ closest = zeros(gridDensity^2,1);
 % map decoding regions for source bits (0 or 1)
 for i = 1:gridDensity
     for j = 1:gridDensity
-        distances = zeros(length(points),1);
+%         distances = zeros(length(points),1);
+%         for k = 1:length(points)
+%            distances(k) = norm([x(i), y(j)] - knownFade*points(k,:))^2; 
+%         end
+%         weight0 = P0*(sum(pc0.*(exp(-distances/N0))));
+%         weight1 = P1*(sum(pc1.*(exp(-distances/N0))));
+
+        % Setup for numeric expected value computation
+        distanceFunc = @(a,k) (x(i) - a*points(k,1)).^2 + (y(j) - a*points(k,2)).^2;
+        fadePdf = @(a) raylpdf(a,sigma);
+        condProbVals = zeros(length(points),1);
+        
         for k = 1:length(points)
-           distances(k) = norm([x(i), y(j)] - points(k,:))^2; 
+            a = -(norm(points(k,:))^2)/N0 - 1/(2*sigma^2);
+            b = 2*(x(i)*points(k,1) + y(j)*points(k,2))/N0;
+            c = -norm([x(i) y(j)])^2 / N0;
+%             condProbVals(k) = -exp(c)/(2*a) + (sqrt(pi)*b*exp(c-(b^2)/(4*a))/(4*(-a)^(3/2)))*(erf(b/(2*sqrt(-a))) + 1);
+            condProbVals(k) = -exp(c)/(2*a) + (sqrt(pi)*b*exp(c-(b^2)/(4*a))/(2*(-a)^(3/2)))*normcdf(b/(sqrt(-2*a)));
+            % Numerically computing expected value
+%             integrand = @(a) exp(-distanceFunc(a,k)/N0).*fadePdf(a);
+%             condProbVals(k) = integral(integrand,0,inf); 
         end
-        weight0 = P0*(sum(pc0.*(exp(-distances/N0))));
-        weight1 = P1*(sum(pc1.*(exp(-distances/N0))));
+        weight0 = P0*(sum(pc0.*condProbVals));
+        weight1 = P1*(sum(pc1.*condProbVals));
+        
         [~, I] = max([weight0, weight1]);
         X((i-1)*gridDensity + j) = x(i);
         Y((i-1)*gridDensity + j) = y(j);
@@ -47,7 +67,7 @@ constY = points(:,2);
 % plot regions
 figure
 hold on
-scatter(X,Y,2,closest,'filled');
+scatter(X,Y,pointSize,closest,'filled');
 scatter(constX,constY,20,'red','filled');
 scatter(centerPoint(1),centerPoint(2),20,'green','filled');
 scatter(0,0,20,'black','filled');

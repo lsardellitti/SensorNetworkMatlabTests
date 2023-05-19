@@ -13,13 +13,18 @@ sourceReceived = zeros(gridDensity^2,1);
 
 trials = 50000000;
 noise = mvnrnd([0,0],eye(2)*(N0/2),trials);
+if sigma > 0
+    fading = raylrnd(sigma,trials,1);
+else 
+    fading = knownFade*ones(trials,1);
+end
 source = rand(trials,1)<P1;
 weakChannel = rand(trials,1)<Ew;
 strongChannel = rand(trials,1)<Es;
 weakSignal = xor(source,weakChannel);
 strongSignal = xor(source,strongChannel);
 sendPoints = points(weakSignal + 2*strongSignal + 1,:); % this depends heavily on the order of points array
-recvPoints = sendPoints + noise;
+recvPoints = fading.*sendPoints + noise;
 errors = 0;
 
 for i = 1:trials

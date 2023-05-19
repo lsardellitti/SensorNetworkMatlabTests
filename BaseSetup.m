@@ -5,6 +5,12 @@ P0 = 1 - P1;
 % noise power
 N0 = 1; 
 
+% fading power, set to 0 for no fading
+sigma = 1;
+% if assuming knowledge of fading at receiver, set sigma to 0, and use this
+% IMPORTANT: keep this at 1 otherwise
+knownFade = 1;
+
 % signal powers (expressed as square root of mean power)
 Pw = sqrt(0.5);
 Ps = sqrt(1);
