@@ -13,20 +13,22 @@ closest = zeros(gridDensity^2,1);
 % map decoding regions for source bits (0 or 1)
 for i = 1:gridDensity
     for j = 1:gridDensity
-%         distances = zeros(length(points),1);
-%         for k = 1:length(points)
-%            distances(k) = norm([x(i), y(j)] - knownFade*points(k,:))^2; 
-%         end
-%         weight0 = P0*(sum(pc0.*(exp(-distances/N0))));
-%         weight1 = P1*(sum(pc1.*(exp(-distances/N0))));
-
         condProbVals = zeros(length(points),1);
         
+        % Fading channel
+        if sigma > 0 
         for k = 1:length(points)
             a = -(norm(points(k,:))^2)/N0 - 1/(2*sigma^2);
             b = 2*(x(i)*points(k,1) + y(j)*points(k,2))/N0;
             c = -norm([x(i) y(j)])^2 / N0;
             condProbVals(k) = -exp(c)/(2*a) + (sqrt(pi)*b*exp(c-(b^2)/(4*a))/(2*(-a)^(3/2)))*normcdf(b/(sqrt(-2*a)));
+        end
+        % No fading or known fading channel
+        else
+        for k = 1:length(points)
+           distance = norm([x(i), y(j)] - knownFade*points(k,:))^2; 
+           condProbVals(k) = exp(-distance/N0);
+        end
         end
         weight0 = P0*(sum(pc0.*condProbVals));
         weight1 = P1*(sum(pc1.*condProbVals));
