@@ -63,8 +63,8 @@ K0 = (Es-Ew)*exp(-(norm(points(2,:)-centerPoint)^2)/N0);
 K = (K0-K1)/(K0+K1);
 
 % Optimal Error Calculations
-PwEquiv = Pw * (Aw + abs(Bw)) / 2;
-PsEquiv = Ps * (As + abs(Bs)) / 2;
+PwEquiv = knownFade * Pw * (Aw + abs(Bw)) / 2;
+PsEquiv = knownFade * Ps * (As + abs(Bs)) / 2;
 cosThetaStar = (N0/(4*PwEquiv*PsEquiv))*log((1-Ew-Es)/(Es-Ew)); 
 thetaStar = 0;
 if 0 <= cosThetaStar && cosThetaStar <= 1

@@ -15,7 +15,7 @@ for i = 1:gridDensity
     for j = 1:gridDensity
         condProbVals = zeros(length(points),1);
         
-        % Fading channel
+        % Fading channel (unknown fading)
         if sigma > 0 
         for k = 1:length(points)
             a = -(norm(points(k,:))^2)/N0 - 1/(2*sigma^2);
@@ -40,6 +40,20 @@ for i = 1:gridDensity
     end
 end
 
+% region test with fading for p=0.5, Aw=As=1
+% closestTheory = zeros(gridDensity^2,1);
+% 
+% for i = 1:gridDensity
+%     for j = 1:gridDensity
+%         alph11 = -(norm(points(4,:))^2)/N0 - 1/(2*sigma^2);
+%         beta11 = 2*(x(i)*points(4,1) + y(j)*points(4,2))/N0;
+%         alph01 = -(norm(points(3,:))^2)/N0 - 1/(2*sigma^2);
+%         beta01 = 2*(x(i)*points(3,1) + y(j)*points(3,2))/N0;
+%         
+%         closestTheory((i-1)*gridDensity + j) = (1-Ew-Es)*beta11*exp(-(beta11^2)/(4*alph11))/(2*(-alph11)^(3/2)) > (Es-Ew)*beta01*exp(-(beta01^2)/(4*alph01))/(2*(-alph01)^(3/2));
+%     end
+% end
+
 % region test for p=0.5
 % closestTheory = zeros(gridDensity^2,1);
 % 
@@ -63,6 +77,9 @@ constY = points(:,2);
 figure
 hold on
 scatter(X,Y,pointSize,closest,'filled');
+if sigma == 0
+    scatter(knownFade*constX,knownFade*constY,20,'magenta','filled');
+end
 scatter(constX,constY,20,'red','filled');
 scatter(centerPoint(1),centerPoint(2),20,'green','filled');
 scatter(0,0,20,'black','filled');
