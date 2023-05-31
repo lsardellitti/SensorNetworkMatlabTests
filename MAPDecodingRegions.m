@@ -40,7 +40,7 @@ for i = 1:gridDensity
     end
 end
 
-% region test with fading for p=0.5, Aw=As=1
+% region test with unknown fading for p=0.5, Aw=As=1
 % closestTheory = zeros(gridDensity^2,1);
 % 
 % for i = 1:gridDensity
@@ -54,7 +54,7 @@ end
 %     end
 % end
 
-% region test for p=0.5
+% region test for no fading p=0.5
 % closestTheory = zeros(gridDensity^2,1);
 % 
 % for i = 1:gridDensity

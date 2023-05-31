@@ -22,7 +22,7 @@ for thetaIndex = 1:length(thetaVals)
     recvPoints = fading.*sendPoints + noise;
     errors = 0;
 
-    % simplified decoding for P0=0.5
+    % simplified decoding for no fading P0=0.5
     % For more precision use original expression
 %     for i = 1:trials
 %         A = dot([recvPoints(i,1),recvPoints(i,2)]-centerPoint, (abs(w0) + w1)/2)*2/N0;
@@ -33,33 +33,33 @@ for thetaIndex = 1:length(thetaVals)
 %         end
 %     end
     
-    % map decoding with fading P0=0.5, Aw=As=1
-    alph11 = -(norm(points(4,:))^2)/N0 - 1/(2*sigma^2);
-    alph01 = -(norm(points(3,:))^2)/N0 - 1/(2*sigma^2);
-    for i = 1:trials
-        beta11 = 2*(recvPoints(i,1)*points(4,1) + recvPoints(i,2)*points(4,2))/N0;
-        beta01 = 2*(recvPoints(i,1)*points(3,1) + recvPoints(i,2)*points(3,2))/N0;
-        
-        decoded = (1-Ew-Es)*beta11*exp(-(beta11^2)/(4*alph11))/(2*(-alph11)^(3/2)) > (Es-Ew)*beta01*exp(-(beta01^2)/(4*alph01))/(2*(-alph01)^(3/2));
-        if decoded ~= source(i)
-            errors = errors + 1;
-        end
-    end
-    
-    % map decoding from original expression
+    % map decoding with unknown fading P0=0.5, Aw=As=1
+%     alph11 = -(norm(points(4,:))^2)/N0 - 1/(2*sigma^2);
+%     alph01 = -(norm(points(3,:))^2)/N0 - 1/(2*sigma^2);
 %     for i = 1:trials
-%         distances = zeros(length(points),1);
-%         for k = 1:length(points)
-%            distances(k) = norm([recvPoints(i,1),recvPoints(i,2)] - points(k,:))^2; 
-%         end
-%         weight0 = P0*(sum(pc0.*(exp(-distances/N0))));
-%         weight1 = P1*(sum(pc1.*(exp(-distances/N0))));
-%         [~, decoded] = max([weight0, weight1]);
+%         beta11 = 2*(recvPoints(i,1)*points(4,1) + recvPoints(i,2)*points(4,2))/N0;
+%         beta01 = 2*(recvPoints(i,1)*points(3,1) + recvPoints(i,2)*points(3,2))/N0;
 %         
-%         if (decoded-1) ~= source(i)
+%         decoded = (1-Ew-Es)*beta11*exp(-(beta11^2)/(4*alph11))/(2*(-alph11)^(3/2)) > (Es-Ew)*beta01*exp(-(beta01^2)/(4*alph01))/(2*(-alph01)^(3/2));
+%         if decoded ~= source(i)
 %             errors = errors + 1;
 %         end
 %     end
+    
+    % map decoding from original expression (for no or known fading)
+    for i = 1:trials
+        distances = zeros(length(points),1);
+        for k = 1:length(points)
+           distances(k) = norm([recvPoints(i,1),recvPoints(i,2)] - fading(i)*points(k,:))^2; 
+        end
+        weight0 = P0*(sum(pc0.*(exp(-distances/N0))));
+        weight1 = P1*(sum(pc1.*(exp(-distances/N0))));
+        [~, decoded] = max([weight0, weight1]);
+        
+        if (decoded-1) ~= source(i)
+            errors = errors + 1;
+        end
+    end
     
     errorProbs(thetaIndex) = errors / trials;
 end
