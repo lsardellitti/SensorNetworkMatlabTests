@@ -3,21 +3,24 @@ numXVals = 1000;
 xSearchOffset = 5;
 
 % Values to test over
-testVals = linspace(0.001,3,50);
+testPwVals = linspace(0.001,3,50);
+testPsVals = linspace(0.001,3,50);
 
-PwVals = ones(length(testVals)^2,1);
-PsVals = ones(length(testVals)^2,1);
+testLength = length(testPwVals)*length(testPsVals);
 
-for i = 1:length(testVals)
-    for j = 1:length(testVals)
-        PwVals((i-1)*length(testVals) + j) = testVals(i);
-        PsVals((i-1)*length(testVals) + j) = testVals(j);
+PwVals = ones(testLength,1);
+PsVals = ones(testLength,1);
+
+for i = 1:length(testPwVals)
+    for j = 1:length(testPsVals)
+        PwVals((i-1)*length(testPsVals) + j) = testPwVals(i);
+        PsVals((i-1)*length(testPsVals) + j) = testPsVals(j);
     end
 end
 
-errorVals = zeros(length(testVals)^2,1);
+errorVals = zeros(testLength,1);
 
-for testIndex = 1:length(testVals)^2
+for testIndex = 1:testLength
     % Comment out whichever parameter is being modified here in BaseSetup
     Ps = PsVals(testIndex);
     Pw = PwVals(testIndex);
@@ -34,13 +37,13 @@ end
 % Error heat map P1 P2
 figure
 hold on
-levels = 100;
+levels = 1000;
 fontSize = 12;
 lineSize = 1;
 
-errorMatrix = reshape(errorVals, length(testVals), length(testVals));
+errorMatrix = reshape(errorVals, length(testPsVals), length(testPwVals));
 set(gca,'ColorScale','log')
-contourf(testVals, testVals, errorMatrix, levels, 'LineColor', 'none','HandleVisibility','off')
+contourf(testPwVals, testPsVals, errorMatrix, levels, 'LineColor', 'none','HandleVisibility','off')
 cBar = colorbar;
 cBar.TickLabelInterpreter = 'latex';
 cBar.Ticks = [0.02, 0.03, 0.05, 0.1, 0.2, 0.3];
@@ -48,11 +51,11 @@ cBar.TickLabels = {'$$2\times10^{-2}$$', '$$3\times10^{-2}$$', '$$5\times10^{-2}
 title(cBar, '$$P_e(P_1,P_2)$$', 'Interpreter', 'latex','FontSize',fontSize)
 
 if caseType == 3
-    PsTildeVals = (N0*P0*P1./(2*testVals))*log(((1-Ew-Es)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es)/((Es-Ew)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es));
-    plot(testVals, PsTildeVals, 'r', 'LineWidth', lineSize)
+    PsTildeVals = (N0*P0*P1./(2*testPwVals))*log(((1-Ew-Es)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es)/((Es-Ew)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es));
+    plot(testPwVals, PsTildeVals, 'r', 'LineWidth', lineSize)
     legend('$$\tilde{P}_2(P_1)$$', 'Interpreter', 'latex','FontSize',fontSize)
-    xlim([0 3])
-    ylim([0 3])
+    xlim([0 max(testPwVals)])
+    ylim([0 max(testPsVals)])
 end
 
 xlabel('$$P_1$$', 'Interpreter', 'latex','FontSize',fontSize) 
