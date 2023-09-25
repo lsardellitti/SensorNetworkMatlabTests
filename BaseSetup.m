@@ -89,12 +89,14 @@ EFactorPlus = (P0-P1)/P0;
 APsMinusXStar = (N0*sqrt(P0*P1)/(2*Pw))*log((1-Ew-Es-EFactorMinus*Ew*Es)/(PRatio*Es-Ew-EFactorMinus*Ew*Es)) - ((P0-P1)/(2*sqrt(P0*P1)))*Pw;
 BPsPlusXStar = (N0*sqrt(P0*P1)/(2*Pw))*log((1-Ew-Es+EFactorPlus*Ew*Es)/((1/PRatio)*Es-Ew+EFactorPlus*Ew*Es)) + ((P0-P1)/(2*sqrt(P0*P1)))*Pw;
 
-PsTilde = (N0*P0*P1/(2*Pw))*log(((1-Ew-Es)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es)/((PRatio*Es-Ew)*(Es/PRatio-Ew)-PRatio2*(-Es-Ew+Ew*Es)*Ew*Es));
+APwMinusXStar = (N0*sqrt(P0*P1)/(2*Ps))*log((1-Ew-Es-EFactorMinus*Ew*Es)/-((1/PRatio)*Es-Ew+EFactorPlus*Ew*Es)) - (P0/(2*sqrt(P0*P1)))*Ps;
 
-% DrA = (P1*p11g1 - P0*p11g0)*exp(-PRatio*(Pw+Ps)^2);
-% DrB = (P1*p10g1 - P0*p10g0)*exp(-PRatio*(Pw-(1/PRatio)*Ps)^2);
-% DrC = (P1*p01g1 - P0*p01g0)*exp(-(1/PRatio)*(Pw-PRatio*Ps)^2);
-% DrD = (P1*p00g1 - P0*p00g0)*exp(-(1/PRatio)*(Pw+Ps)^2);
+PsTilde = (N0*P0*P1/(2*Pw))*log(((1-Ew-Es)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es)/((Es-Ew)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es));
+
+DrA = (P1*p11g1 - P0*p11g0)*exp(-PRatio*(Pw+Ps)^2);
+DrB = (P1*p10g1 - P0*p10g0)*exp(-PRatio*(Pw-(1/PRatio)*Ps)^2);
+DrC = (P1*p01g1 - P0*p01g0)*exp(-(1/PRatio)*(Pw-PRatio*Ps)^2);
+DrD = (P1*p00g1 - P0*p00g0)*exp(-(1/PRatio)*(Pw+Ps)^2);
 % 
 % eqPDrA = P0*p10g0 - P1*p10g1;
 % eqPDrB = P1*p11g1 - P0*p11g0;
