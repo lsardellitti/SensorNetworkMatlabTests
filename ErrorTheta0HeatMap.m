@@ -26,33 +26,9 @@ for testIndex = 1:length(testVals)^2
 
     x = calculateXvals(points, P0, P1, pc0, pc1, N0, knownFade, -Ps-Pw-xSearchOffset, Ps+Pw+xSearchOffset, numXVals);
     
-    if isempty(x)
-        errorVals(testIndex) = min(P0,P1);
-        continue
-    elseif length(x) == 1
-        p1g11 = normcdf((a11(1) - x(1))/noistdv);
-        p1g01 = normcdf((a01(1) - x(1))/noistdv);
-        p1g10 = normcdf((a10(1) - x(1))/noistdv);
-        p1g00 = normcdf((a00(1) - x(1))/noistdv);
-    elseif length(x) == 3
-        p1g11 = normcdf((a11(1) - x(1))/noistdv) - normcdf((a11(1) - x(2))/noistdv) + normcdf((a11(1) - x(3))/noistdv);
-        p1g01 = normcdf((a01(1) - x(1))/noistdv) - normcdf((a01(1) - x(2))/noistdv) + normcdf((a01(1) - x(3))/noistdv);
-        p1g10 = normcdf((a10(1) - x(1))/noistdv) - normcdf((a10(1) - x(2))/noistdv) + normcdf((a10(1) - x(3))/noistdv);
-        p1g00 = normcdf((a00(1) - x(1))/noistdv) - normcdf((a00(1) - x(2))/noistdv) + normcdf((a00(1) - x(3))/noistdv);
-    else 
-        % This would be bad
-        error('Unexpected number of x vals found')
-    end
+    [errorVal, ~] = calculateErrorFromDR(x, points, P0, P1, pc0, pc1, noistdv);
     
-    p0g11 = 1 - p1g11;
-    p0g01 = 1 - p1g01;
-    p0g10 = 1 - p1g10;
-    p0g00 = 1 - p1g00;
-
-    e0 = p11g0*p1g11 + p01g0*p1g01 + p10g0*p1g10 + p00g0*p1g00;
-    e1 = p11g1*p0g11 + p01g1*p0g01 + p10g1*p0g10 + p00g1*p0g00;
-    
-    errorVals(testIndex) = P0*e0 + P1*e1;
+    errorVals(testIndex) = errorVal;
 end
 
 % Error heat map P1 P2
