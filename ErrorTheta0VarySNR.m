@@ -1,6 +1,6 @@
 theta = 0;
 numXVals = 1000;
-xSearchOffset = 10;
+xSearchOffset = 15;
 
 % Max powers, expressed as square roots of mean power
 PwMax = 1;
@@ -27,7 +27,11 @@ for testIndex = 1:length(testVals)
         Pw = PwMax;
         Ps = 0; %#ok<NASGU> % Set for robustness
         BaseSetup;
-        Ps = min(PsTilde,PsMax); % need to check for imaginary
+        if caseType == 3
+            Ps = min(PsTilde,PsMax); % need to check for imaginary
+        else
+            Ps = PsMax;
+        end
     else
         Pw = PwVals(setup);
         Ps = PsVals(setup);
@@ -50,5 +54,5 @@ plot(10*log10(PwMax.*PsMax./testVals),errorVals);
 set(gca, 'YScale', 'log')
 xlabel('SNR (dB)') 
 ylabel('Error Probability')
-legendText = {'$$P_1 = P_1^{max}, P_2 = \tilde{P}_2(P_1)$$','$$P_1 = P_1^{max}, P_2 = P_2^{max}$$','$$P_1 = P_1^{max}, P_2 =0$$','$$P_1 = 0, P_2 = P_2^{max}$$'};
+legendText = {'$$P_1 = P_1^{max}, P_2 = P_2^*(P_1^{max})$$','$$P_1 = P_1^{max}, P_2 = P_2^{max}$$','$$P_1 = P_1^{max}, P_2 =0$$','$$P_1 = 0, P_2 = P_2^{max}$$'};
 legend(legendText, 'Interpreter', 'latex','FontSize',10)

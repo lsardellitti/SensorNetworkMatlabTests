@@ -17,8 +17,19 @@ Pw = sqrt(0.5);
 Ps = sqrt(1);
 
 % crossover probabilities
-Ew = 0.01;
-Es = 0.05;
+Ew = 0.1;
+Es = 0.15;
+
+% Case Type analysis
+case1Thresh = (Ew*Es)/(1 - Ew - Es + 2*Ew*Es);
+case2Thresh = (Ew - Ew*Es)/(Ew + Es - 2*Ew*Es);
+if P1 <= case1Thresh
+    caseType = 1;
+elseif P1 <= case2Thresh
+    caseType = 2;
+else
+    caseType = 3;
+end
 
 % constellation parmeters
 Aw = sqrt(P0/P1);

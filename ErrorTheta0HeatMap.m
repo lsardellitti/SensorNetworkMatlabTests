@@ -47,10 +47,13 @@ cBar.Ticks = [0.02, 0.03, 0.05, 0.1, 0.2, 0.3];
 cBar.TickLabels = {'$$2\times10^{-2}$$', '$$3\times10^{-2}$$', '$$5\times10^{-2}$$', '$$10^{-1}$$', '$$2\times10^{-1}$$', '$$3\times10^{-1}$$'};
 title(cBar, '$$P_e(P_1,P_2)$$', 'Interpreter', 'latex','FontSize',fontSize)
 
-PsTildeVals = (N0*P0*P1./(2*testVals))*log(((1-Ew-Es)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es)/((Es-Ew)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es));
-plot(testVals, PsTildeVals, 'r', 'LineWidth', lineSize)
-legend('$$\tilde{P}_2(P_1)$$', 'Interpreter', 'latex','FontSize',fontSize)
-xlim([0 3])
-ylim([0 3])
+if caseType == 3
+    PsTildeVals = (N0*P0*P1./(2*testVals))*log(((1-Ew-Es)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es)/((Es-Ew)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es));
+    plot(testVals, PsTildeVals, 'r', 'LineWidth', lineSize)
+    legend('$$\tilde{P}_2(P_1)$$', 'Interpreter', 'latex','FontSize',fontSize)
+    xlim([0 3])
+    ylim([0 3])
+end
+
 xlabel('$$P_1$$', 'Interpreter', 'latex','FontSize',fontSize) 
 ylabel('$$P_2$$', 'Interpreter', 'latex','FontSize',fontSize) 
