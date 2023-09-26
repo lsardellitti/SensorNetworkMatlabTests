@@ -1,3 +1,4 @@
+setupValsOverride = true; %#ok<NASGU>
 theta = 0;
 numXVals = 1000;
 xSearchOffset = 15;
@@ -56,3 +57,6 @@ xlabel('SNR (dB)')
 ylabel('Error Probability')
 legendText = {'$$P_1 = P_1^{max}, P_2 = P_2^*(P_1^{max})$$','$$P_1 = P_1^{max}, P_2 = P_2^{max}$$','$$P_1 = P_1^{max}, P_2 =0$$','$$P_1 = 0, P_2 = P_2^{max}$$'};
 legend(legendText, 'Interpreter', 'latex','FontSize',10)
+
+% Always set this back to false after using
+setupValsOverride = false;

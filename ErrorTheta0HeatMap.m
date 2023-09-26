@@ -1,6 +1,8 @@
+setupValsOverride = true; %#ok<NASGU>
 theta = 0;
+N0 = 1;
 numXVals = 1000;
-xSearchOffset = 50;
+xSearchOffset = 5;
 
 % Values to test over
 PwVals = linspace(0.001,3,50);
@@ -42,10 +44,22 @@ title(cBar, '$$P_e(P_1,P_2)$$', 'Interpreter', 'latex','FontSize',fontSize)
 if caseType == 3
     PsTildeVals = (N0*P0*P1./(2*PwVals))*log(((1-Ew-Es)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es)/((Es-Ew)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es));
     plot(PwVals, PsTildeVals, 'r', 'LineWidth', lineSize)
+%     plot(PwVals, PwVals.^2 + PsTildeVals.^2, 'k', 'LineWidth', lineSize)
     legend('$$\tilde{P}_2(P_1)$$', 'Interpreter', 'latex','FontSize',fontSize)
     xlim([0 max(PwVals)])
     ylim([0 max(PsVals)])
+    
+    % Colour line for power usage
+%     figure
+%     z = zeros(size(PwVals));
+%     col = PwVals.^2 + PsTildeVals.^2;
+%     surface([PwVals;PwVals],[PsTildeVals;PsTildeVals],[z;z],[col;col],'facecol','no','edgecol','interp','linew',lineSize);
+%     xlim([0 max(PwVals)])
+%     ylim([0 max(PsVals)])
 end
 
 xlabel('$$P_1$$', 'Interpreter', 'latex','FontSize',fontSize) 
 ylabel('$$P_2$$', 'Interpreter', 'latex','FontSize',fontSize) 
+
+% Always set this back to false after using
+setupValsOverride = false;

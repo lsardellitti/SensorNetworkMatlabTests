@@ -1,24 +1,28 @@
 % source probability
-P1 = 0.5;
+P1 = 0.3;
 P0 = 1 - P1;
-
-% noise power
-N0 = 1; 
-noistdv = sqrt(N0/2);
-
-% fading power, set to 0 for no fading
-sigma = 1;
-% if assuming knowledge of fading at receiver, set sigma to 0, and use this
-% IMPORTANT: keep this at 1 otherwise
-knownFade = 1;
-
-% signal powers (expressed as square root of mean power)
-Pw = sqrt(0.5);
-Ps = sqrt(1);
 
 % crossover probabilities
 Ew = 0.1;
 Es = 0.15;
+
+if exist('setupValsOverride','var') ~= 1 || setupValsOverride == false
+    % noise power
+    N0 = 1;
+    
+    % signal powers (expressed as square root of mean power)
+    Pw = 1;
+    Ps = 1;
+end
+
+% Noise standard deviation
+noistdv = sqrt(N0/2);
+
+% fading power, set to 0 for no fading
+sigma = 0;
+% if assuming knowledge of fading at receiver, set sigma to 0, and use this
+% IMPORTANT: keep this at 1 otherwise
+knownFade = 1;
 
 % Case Type analysis
 case1Thresh = (Ew*Es)/(1 - Ew - Es + 2*Ew*Es);

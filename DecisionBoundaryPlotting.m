@@ -1,4 +1,7 @@
+setupValsOverride = true; %#ok<NASGU>
 theta = 0;
+N0 = 1;
+Pw = 1;
 numXVals = 1000;
 xSearchOffset = 5;
 
@@ -68,3 +71,6 @@ if useManualTicks && caseType == 3
     plot([0 PsTilde], [Aw*PsTilde - APsMinusXStar Aw*PsTilde - APsMinusXStar], 'k--','HandleVisibility','off')
     plot([PsTilde PsTilde], [-1 Aw*PsTilde - APsMinusXStar], 'k--','HandleVisibility','off')
 end
+
+% Always set this back to false after using
+setupValsOverride = false;
