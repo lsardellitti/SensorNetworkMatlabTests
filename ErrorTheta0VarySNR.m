@@ -7,8 +7,8 @@ xSearchOffset = 15;
 PwMax = 1;
 PsMax = 1;
 
-% Values for SNR testing
-testVals = logspace(-2,2,100);
+% SNR Values for testing
+testVals = linspace(-15,10,100);
 
 % Setup for multiple tests
 numSetups = 4;
@@ -21,7 +21,7 @@ errorVals = zeros(length(testVals),numSetups);
 for setup = 1:numSetups
 for testIndex = 1:length(testVals)
     % Comment out whichever parameter is being modified here in BaseSetup
-    N0 = testVals(testIndex);
+    N0 = PsMax*PwMax / 10^(testVals(testIndex)/10);
     
     % Power allocation setups
     if setup == 1
@@ -51,12 +51,17 @@ end %setup loop
 % Error Prob SNR Comparisons
 figure
 hold on
-plot(10*log10(PwMax.*PsMax./testVals),errorVals);
+styles = repmat("-",numSetups,1);
+styles(2) = '--';
+for i= 1:numSetups
+    plot(testVals,errorVals(:,i),'LineStyle',styles(i));
+end
 set(gca, 'YScale', 'log')
 xlabel('SNR (dB)') 
 ylabel('Error Probability')
 legendText = {'$$P_1 = P_1^{max}, P_2 = P_2^*(P_1^{max})$$','$$P_1 = P_1^{max}, P_2 = P_2^{max}$$','$$P_1 = P_1^{max}, P_2 =0$$','$$P_1 = 0, P_2 = P_2^{max}$$'};
 legend(legendText, 'Interpreter', 'latex','FontSize',10)
+title(sprintf('$$p_1 = %0.2f, \\epsilon_1 = %0.2f, \\epsilon_2 = %0.2f, P_1^{max} = %0.2f, P_2^{max} = %0.2f, Case %0.0f$$',P1,Ew,Es,PwMax,PsMax,caseType), 'Interpreter', 'latex')
 
 % Always set this back to false after using
 setupValsOverride = false;
