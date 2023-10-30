@@ -1,9 +1,12 @@
+setupValsOverride = true; %#ok<NASGU>
 theta = 0;
+N0 = 1;
+Pw = 1;
 numXVals = 1000;
 xSearchOffset = 10;
 
 % Values range to test over
-testVals = linspace(0.001,2.5,1000);
+testVals = linspace(0.001,3,1000);
 
 errorVals = zeros(length(testVals),1);
 lowerBoundVals = zeros(length(testVals),1);
@@ -25,10 +28,12 @@ end
 figure
 hold on
 plot(testVals, errorVals)
-plot(testVals, lowerBoundVals)
+% plot(testVals, lowerBoundVals)
 xlabel('P2') 
 ylabel('Error Probability')
 
 % [~, idx] = min(errorVals);
 % testVals(idx)
 % xBarVals(idx)
+
+setupValsOverride = false;
