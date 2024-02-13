@@ -1,8 +1,9 @@
-thetaVals = linspace(0,pi/2,100);
+thetaVals = linspace(0.1,5,100);
 errorVals = zeros(1, length(thetaVals));
+theta = pi/5;
 
 for thetaIndex = 1:length(thetaVals)
-    theta = thetaVals(thetaIndex);
+    Ps = thetaVals(thetaIndex);
     BaseSetup;
     if theta == 0
         if Pw/Ps > (K0-K1)/(K0+K1)

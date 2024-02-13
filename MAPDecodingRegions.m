@@ -95,6 +95,12 @@ text(constX(2)+textXoff,constY(2)+textYoff,'{\it a}_{10}','Color',textColor,'Fon
 text(constX(3)+textXoff,constY(3)+textYoff,'{\it a}_{01}','Color',textColor,'FontSize',textSize,'FontName',textFont);
 text(constX(4)+textXoff,constY(4)+textYoff,'{\it a}_{11}','Color',textColor,'FontSize',textSize,'FontName',textFont);
 
+% xline(testXBound, 'red');
+
+% xTest = linspace(0.1,5,10000);
+% figure
+% plot(xTest, DrA*xTest+DrB*xTest.^(Pw/(Pw+Ps))+DrC*xTest.^(Ps/(Pw+Ps))+DrD)
+
 % figure
 % hold on
 % scatter(X,Y,2,closestTheory,'filled');

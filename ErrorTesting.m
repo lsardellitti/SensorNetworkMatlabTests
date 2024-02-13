@@ -1,9 +1,8 @@
 % Note: to vary theta in BaseSetup, comment out its defnition.
-thetaVals = linspace(0,pi/2,100);
-errorProbs = zeros(1,length(thetaVals));
+testVals = linspace(-5,10,50);
+errorProbs = zeros(1,length(testVals));
 
-for thetaIndex = 1:length(thetaVals)
-    theta = thetaVals(thetaIndex);
+for testIndex = 1:length(testVals)
     BaseSetup;
 
     trials = 1000000;
@@ -61,8 +60,8 @@ for thetaIndex = 1:length(thetaVals)
         end
     end
     
-    errorProbs(thetaIndex) = errors / trials;
+    errorProbs(testIndex) = errors / trials;
 end
 
 figure
-plot(thetaVals, errorProbs);
+plot(testVals, errorProbs);
