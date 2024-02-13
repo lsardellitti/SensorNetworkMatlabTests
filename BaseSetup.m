@@ -106,6 +106,8 @@ BPsPlusXStar = (N0*sqrt(P0*P1)/(2*Pw))*log((1-Ew-Es+EFactorPlus*Ew*Es)/((1/PRati
 
 aBar = P1*p11g1 - P0*p11g0;
 bBar = P1*p10g1 - P0*p10g0;
+cBar = P1*p01g1 - P0*p01g0;
+dBar = P1*p00g1 - P0*p00g0;
 APwMinusXStar = (N0*sqrt(P0*P1)/(2*Ps))*log(aBar/-bBar) - ((P0-P1)/(2*sqrt(P0*P1)))*Ps;
 
 PsTilde = (N0*P0*P1/(2*Pw))*log(((1-Ew-Es)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es)/((Es-Ew)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es));
