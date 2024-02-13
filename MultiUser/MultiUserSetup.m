@@ -1,19 +1,19 @@
 % source probability
-P1 = 0.4;
+P1 = 0.5;
 P0 = 1 - P1;
 
 % Number of Sensors
-N = 5;
+N = 4;
 
 % crossover probabilities
-E = [0.1, 0.15, 0.2, 0.25, 0.3];
+E = [0.1, 0.1, 0.3, 0.3];
 
 if exist('setupValsOverride','var') ~= 1 || setupValsOverride == false
     % noise power
     N0 = 1;
     
     % signal powers (expressed as square root of mean power)
-    P = [1, 1, 1, 1, 1];
+    P = [1, 1, 1, 1];
 end
 
 % Noise standard deviation
@@ -37,3 +37,4 @@ end
 
 centerPoint = (points(1) + points(2^N)) / 2;
 pc = P0*pc0 + P1*pc1;
+pBar = P1*pc1 - P0*pc0;
