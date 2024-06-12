@@ -15,17 +15,17 @@ PVals = zeros(numIters,length(P))/0;
 prevError = 1;
 
 for iter = 1:numIters
-for pIndex = startIndex:length(P)
-    [~, PMin, errorMin] = calculateOptimalPVal(P, Pmax(pIndex), N0, xSearchOffset, numXVals, pIndex);
-    
-    P(pIndex) = PMin;
-    errorVals = [errorVals, errorMin]; %#ok<AGROW>
-end
-PVals(iter,:) = P;
-if exp(prevError - errorVals(end)) - 1 < convThresh
-   break 
-end
-prevError = errorVals(end);
+    for pIndex = startIndex:length(P)
+        [~, PMin, errorMin] = calculateOptimalPVal(P, Pmax(pIndex), N0, xSearchOffset, numXVals, pIndex);
+
+        P(pIndex) = PMin;
+        errorVals = [errorVals, errorMin]; %#ok<AGROW>
+    end
+    PVals(iter,:) = P;
+    if exp(prevError - errorVals(end)) - 1 < convThresh
+       break 
+    end
+    prevError = errorVals(end);
 end
 
 figure
