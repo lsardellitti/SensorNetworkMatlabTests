@@ -1,8 +1,13 @@
-% Note: to vary theta in BaseSetup, comment out its defnition.
-testVals = linspace(-5,10,50);
+setupValsOverride = true; %#ok<NASGU>
+testVals = linspace(0.01,3,100);
 errorProbs = zeros(1,length(testVals));
 
 for testIndex = 1:length(testVals)
+    Pw = 1;
+    Ps = testVals(testIndex);
+    theta = 0;
+    N0 = 1; %Ps*Pw / 10^(testVals(testIndex)/10);
+
     BaseSetup;
 
     trials = 1000000;
@@ -65,3 +70,5 @@ end
 
 figure
 plot(testVals, errorProbs);
+
+setupValsOverride = false;
