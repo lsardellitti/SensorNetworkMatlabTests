@@ -1,20 +1,27 @@
 setupValsOverride = true; %#ok<NASGU>
 N0 = 1;
-P = [1, 3, 1];
-testVals = linspace(0,10,50);
+P = [1 0.7 0.5 0.1];
+testVals = linspace(-5,10,25);
 errorProbs = zeros(1,length(testVals));
 
 for testIndex = 1:length(testVals)
-    P(3) = testVals(testIndex);
+%     P(1) = testVals(testIndex);
+    N0 = prod(P)^(2/n) / 10^(testVals(testIndex)/10);
+    
     MultiUserSetup;
 
     trials = 100000;
-    noise = mvnrnd(0,N0/2,trials);
+    % Single channel
+%     noise = mvnrnd(0,N0/2,trials);
+    % Orthogonal channels
+    noise = mvnrnd(zeros(1,N),eye(N)*(N0/2),trials);
+    points = A(binWords+1).*P;
+
     source = rand(trials,1)<P1;
     channels = rand(trials,n)<E;
     signals = xor(source,channels);
     powers = 2.^(N-1:-1:0);
-    sendPoints = points(sum(powers.*signals,2) + 1);
+    sendPoints = points(sum(powers.*signals,2) + 1,:);
     recvPoints = sendPoints + noise;
     errors = 0;
 
@@ -22,7 +29,7 @@ for testIndex = 1:length(testVals)
     for i = 1:trials
         distances = zeros(length(points),1);
         for k = 1:length(points)
-           distances(k) = norm(recvPoints(i) - points(k))^2; 
+           distances(k) = norm(recvPoints(i,:) - points(k,:))^2; 
         end
         weight0 = P0*(sum(pc0.*(exp(-distances/N0))));
         weight1 = P1*(sum(pc1.*(exp(-distances/N0))));
