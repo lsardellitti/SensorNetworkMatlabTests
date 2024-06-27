@@ -1,16 +1,20 @@
 setupValsOverride = true; %#ok<NASGU>
 N0 = 1;
-P = [1 0.7 0.5 0.1];
-testVals = linspace(-5,10,25);
+
+if ~exist('runningComparison','var') == 1 || runningComparison == false
+    P = [1 2 2 2];
+    testVals = linspace(-10,15,50);
+end
+
 errorProbs = zeros(1,length(testVals));
 
 for testIndex = 1:length(testVals)
 %     P(1) = testVals(testIndex);
-    N0 = prod(P)^(2/n) / 10^(testVals(testIndex)/10);
+    N0 = prod(P)^(2/length(P)) / 10^(testVals(testIndex)/10);
     
     MultiUserSetup;
 
-    trials = 100000;
+    trials = 10000;
     % Single channel
 %     noise = mvnrnd(0,N0/2,trials);
     % Orthogonal channels
@@ -41,6 +45,11 @@ for testIndex = 1:length(testVals)
     end
     
     errorProbs(testIndex) = errors / trials;
+end
+
+if exist('runningComparison','var') == 1 && runningComparison == true
+    setupValsOverride = false;
+    return
 end
 
 figure

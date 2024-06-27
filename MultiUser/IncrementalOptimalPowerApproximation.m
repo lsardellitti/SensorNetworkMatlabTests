@@ -1,11 +1,15 @@
 setupValsOverride = true; %#ok<NASGU>
-N0 = 1;
-Pmax = [1 5 5];
-P = [1 5 5];
+
+if ~exist('runningComparison','var') == 1 || runningComparison == false
+    N0 = 1;
+	Pmax = [1 5 5 5 5 5 5 5];
+    P = [1 0.1 0.1 0.1 0.1];
+end
+
 startIndex = 2;
 
 numXVals = 5000;
-xSearchOffset = 20;
+xSearchOffset = 200;
 
 numIters = 50;
 convThresh = 10^-9;
@@ -28,14 +32,21 @@ for iter = 1:numIters
     prevError = errorVals(end);
 end
 
+if exist('runningComparison','var') == 1 && runningComparison == true
+    setupValsOverride = false;
+    return
+end
+
 figure
 plot(errorVals)
 ylabel('Error Probability')
 xlabel('Step Number')
+set(gca, 'YScale', 'log')
 
 figure
 plot(PVals)
-ylabel('P_i')
+ylim([0.4,1.05])
+ylabel('Power Allocation')
 xlabel('Iteration Number')
 legendEntries = cell(length(P),1);
 for i=1:length(P)
