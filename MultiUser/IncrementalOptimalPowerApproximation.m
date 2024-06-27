@@ -4,12 +4,12 @@ if ~exist('runningComparison','var') == 1 || runningComparison == false
     N0 = 1;
 	Pmax = [1 5 5 5 5 5 5 5];
     P = [1 0.1 0.1 0.1 0.1];
+    
+    numXVals = 500;
+    xSearchOffset = 200;
 end
 
 startIndex = 2;
-
-numXVals = 5000;
-xSearchOffset = 200;
 
 numIters = 50;
 convThresh = 10^-9;

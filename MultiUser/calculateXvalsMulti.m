@@ -8,11 +8,7 @@ function [xVals] = calculateXvalsMulti(points, P0, P1, pc0, pc1, N0, xMin, xMax,
     xVals = [];
     for xIndex = 1:length(xTests)
         x = xTests(xIndex);
-        condProbVals = zeros(length(points),1);
-        for k = 1:length(points)
-           distance = (x - points(k))^2;
-           condProbVals(k) = exp(-distance/N0);
-        end
+        condProbVals = exp(-((x-points).^2)/N0);
         weight0 = P0*(sum(pc0.*condProbVals.*partialVals));
         weight1 = P1*(sum(pc1.*condProbVals.*partialVals));
         

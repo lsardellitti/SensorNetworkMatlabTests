@@ -5,10 +5,10 @@ if ~exist('runningComparison','var') == 1 || runningComparison == false
     P = Pmax;
     testVals = linspace(0,4,50);
     useMAP = false;
+    
+    numXVals = 500;
+    xSearchOffset = 10; 
 end
-
-numXVals = 5000;
-xSearchOffset = 50;
 
 errorVals = zeros(length(testVals),1);
 

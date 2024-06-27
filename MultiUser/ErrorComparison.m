@@ -6,6 +6,11 @@ end
 Pmax = [1 1 1 1 1 1];
 Pstart = [1 0.1 0.1 0.1 0.1 0.1];
 testVals = linspace(-10,20,5);
+
+numXVals = 50;
+xSearchOffset = 50;
+trials = 100;
+
 errorProbs = zeros(1,length(testVals));
 powerUsage = zeros(2,length(testVals));
 

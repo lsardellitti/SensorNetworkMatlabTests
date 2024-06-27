@@ -3,10 +3,14 @@ if exist('runningOnCAC','var') ~= 1
     runningOnCAC = false;
 end
 
-NVals = 3:1:10;
-EVals = [0.05 0.05 0.1 0.1 0.2 0.2 0.2 0.3 0.3 0.3];
+NVals = 20:1:20;
+EVals = 0.1*ones(1,25);
 PVal = 1;
-SNRVal = 10;
+SNRVal = 0;
+
+numXVals = 50;
+xSearchOffset = 50;
+trials = 100;
 
 orthoError = zeros(1,length(NVals));
 maxMacError = zeros(1,length(NVals));
