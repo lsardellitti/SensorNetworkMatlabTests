@@ -3,14 +3,14 @@ if exist('runningOnCAC','var') ~= 1
     runningOnCAC = false;
 end
 
-NVals = 20:1:20;
-EVals = 0.1*ones(1,25);
+NVals = 3:1:20;
+EVals = 0.1*ones(1,20);
 PVal = 1;
 SNRVal = 0;
 
-numXVals = 50;
+numXVals = 500;
 xSearchOffset = 50;
-trials = 100;
+trials = 10000;
 
 orthoError = zeros(1,length(NVals));
 maxMacError = zeros(1,length(NVals));
@@ -53,8 +53,8 @@ end
 
 if runningOnCAC
     % save data
-    fileName = sprintf('../CACData/ErrNCompP%0.2fE%sPMax%s.mat',P1,join(string(EVals)),join(string(PVal)));
-    save(fileName, 'SNRVal', 'NVals', 'orthoError', 'maxMacError', 'maxMacMapError', 'pairwiseError', 'algoError');
+    fileName = sprintf('../CACData/ErrNCompP%0.2fSNR%0.1f.mat',P1,SNRVal);
+    save(fileName, 'EVals', 'NVals', 'orthoError', 'maxMacError', 'maxMacMapError', 'pairwiseError', 'algoError');
 else
     figure
     hold on

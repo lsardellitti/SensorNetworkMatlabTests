@@ -1,34 +1,44 @@
-P1 = 0.4;
-E = [0.1 0.1 0.2 0.2 0.2 0.2 0.3 0.3];
-Pmax = [1 1 5 5 5 5 5 5];
+compareN = false;
 
-fileNames = dir(strcat("CACData/","*.mat"));
+if compareN
+   dirName = 'CACData/ErrN';
+else
+   dirName = 'CACData\ErrCompP0.35E0.05 0.1 0.15 0.2 0.2PMax1 3';
+end
+
+fileNames = dir(strcat(dirName,"*.mat"));
 for fileIndex = 1:length(fileNames)
 load(strcat("CACData/",fileNames(fileIndex).name));
 
+% figure
+% hold on
 
-% fileName = sprintf('CACData/ErrCompP%0.2fE%sPMax%s.mat',P1,join(string(E)),join(string(Pmax)));
-% load(fileName);
+if compareN
+    plot(NVals, orthoError)
+    plot(NVals, maxMacError)
+    plot(NVals, pairwiseError)
+    plot(NVals, algoError)
+    set(gca, 'YScale', 'log')
+    ylabel('Error Probability')
+    xlabel('Number of Sensors')
+    legend({'Orthogonal Signaling','MAC Full Power','Pairwise MAC','MAC Algorithm'})
+else
+%     plot(testVals, orthoError)
+    plot(testVals, maxMacError)
+    plot(testVals, maxMacMapError)
+%     plot(testVals, pairwiseError)
+%     plot(testVals, pairwiseMapError)
+    plot(testVals, algoError)
+%     plot(testVals, algoMaxError)
+    set(gca, 'YScale', 'log')
+    ylabel('Error Probability')
+    xlabel('SNR (dB)')
+    legend({'Orthogonal Signaling','MAC Full Power','Pairwise MAC','MAC Algorithm'})
 
-figure
-hold on
-
-plot(testVals, orthoError)
-plot(testVals, maxMacError)
-plot(testVals, maxMacMapError)
-plot(testVals, pairwiseError)
-plot(testVals, pairwiseMapError)
-plot(testVals, algoError)
-plot(testVals, algoMaxError)
-set(gca, 'YScale', 'log')
-ylabel('Error Probability')
-xlabel('SNR (dB)')
-legend({'Ortho','MAC full','MAC full MAP','Pairwise MAC','Pairwise MAC MAP','MAC algo','MAC algo max'})
-
-figure
-plot(testVals, powerUsage);
-ylabel('Power Usage Ratio')
-xlabel('SNR (dB)')
-legend({'MAC algo','MAC algo max'})
-
+    figure
+    plot(testVals, powerUsage);
+    ylabel('Power Usage Ratio')
+    xlabel('SNR (dB)')
+    legend({'MAC Algorithm','MAC Algorithm Full Start'})
+end
 end

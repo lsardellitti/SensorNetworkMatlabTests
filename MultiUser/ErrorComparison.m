@@ -3,13 +3,13 @@ if exist('runningOnCAC','var') ~= 1
     runningOnCAC = false;
 end
 
-Pmax = [1 1 1 1 1 1];
-Pstart = [1 0.1 0.1 0.1 0.1 0.1];
-testVals = linspace(-10,20,5);
+Pmax = ones(1,5);
+Pstart = [1 0.1*ones(1,4)];
+testVals = linspace(-10,20,50);
 
-numXVals = 50;
+numXVals = 500;
 xSearchOffset = 50;
-trials = 100;
+trials = 10000;
 
 errorProbs = zeros(1,length(testVals));
 powerUsage = zeros(2,length(testVals));
