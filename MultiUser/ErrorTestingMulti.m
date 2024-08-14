@@ -10,7 +10,6 @@ end
 errorProbs = zeros(1,length(testVals));
 
 for testIndex = 1:length(testVals)
-%     P(1) = testVals(testIndex);
     N0 = prod(P)^(2/length(P)) / 10^(testVals(testIndex)/10);
     
     MultiUserSetup;
@@ -29,7 +28,7 @@ for testIndex = 1:length(testVals)
     recvPoints = sendPoints + noise;
     errors = 0;
     
-    % map decoding from original expression (for no fading)
+    % MAP Detection 
     for i = 1:trials
         distances = sum((recvPoints(i,:)-points).^2,2);
         weight0 = P0*(sum(pc0.*(exp(-distances/N0))));

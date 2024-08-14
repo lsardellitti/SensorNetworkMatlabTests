@@ -26,19 +26,6 @@ for testIndex = 1:length(testVals)
         end
     end
     
-%     P = zeros(length(Pmax),1);
-%     for i = 1:length(P)
-%         for j = 2:length(P)
-%             P(i) = P(i) + Pmax(i);
-%             Ptilde = (N0*P0*P1/(2*P(i)))*log(((1-E(i)-E(j))^2-PRatio2*(1-E(i))*(1-E(j))*E(i)*E(j))/((E(j)-E(i))^2-PRatio2*(1-E(i))*(1-E(j))*E(i)*E(j)));
-%             if ~isreal(Ptilde) || Ptilde > Pmax(j)
-%                 Ptilde = Pmax(j);
-%             end
-%             P(j) = P(j) + Ptilde;
-%         end
-%     end
-%     P = P/(N-1);
-    
     MultiUserSetup;
 
     x = calculateXvalsMulti(points, P0, P1, pc0, pc1, N0, points(1)-xSearchOffset, points(2^N)+xSearchOffset, numXVals);

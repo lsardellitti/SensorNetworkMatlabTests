@@ -40,35 +40,6 @@ for i = 1:gridDensity
     end
 end
 
-% region test with unknown fading for p=0.5, Aw=As=1
-% closestTheory = zeros(gridDensity^2,1);
-% 
-% for i = 1:gridDensity
-%     for j = 1:gridDensity
-%         alph11 = -(norm(points(4,:))^2)/N0 - 1/(2*sigma^2);
-%         beta11 = 2*(x(i)*points(4,1) + y(j)*points(4,2))/N0;
-%         alph01 = -(norm(points(3,:))^2)/N0 - 1/(2*sigma^2);
-%         beta01 = 2*(x(i)*points(3,1) + y(j)*points(3,2))/N0;
-%         
-%         closestTheory((i-1)*gridDensity + j) = (1-Ew-Es)*beta11*exp(-(beta11^2)/(4*alph11))/(2*(-alph11)^(3/2)) > (Es-Ew)*beta01*exp(-(beta01^2)/(4*alph01))/(2*(-alph01)^(3/2));
-%     end
-% end
-
-% region test for no fading p=0.5
-% closestTheory = zeros(gridDensity^2,1);
-% 
-% for i = 1:gridDensity
-%     for j = 1:gridDensity
-%         A = dot([x(i),y(j)]-centerPoint, (abs(w0) + w1)/2)*2/N0;
-%         B = dot([x(i),y(j)]-centerPoint, (abs(s0) + s1)/2)*2/N0;
-%         if sign(B)*(tanh(A)/tanh(B)) > sign(B)*((K0-K1)/(K1+K0))
-%             closestTheory((i-1)*gridDensity + j) = 1;
-%         else
-%             closestTheory((i-1)*gridDensity + j) = 0;
-%         end
-%     end
-% end
-
 % constellation points
 constX = points(:,1);
 constY = points(:,2);
@@ -94,15 +65,3 @@ text(constX(1)+textXoff,constY(1)+textYoff,'{\it a}_{00}','Color',textColor,'Fon
 text(constX(2)+textXoff,constY(2)+textYoff,'{\it a}_{10}','Color',textColor,'FontSize',textSize,'FontName',textFont);
 text(constX(3)+textXoff,constY(3)+textYoff,'{\it a}_{01}','Color',textColor,'FontSize',textSize,'FontName',textFont);
 text(constX(4)+textXoff,constY(4)+textYoff,'{\it a}_{11}','Color',textColor,'FontSize',textSize,'FontName',textFont);
-
-% xline(testXBound, 'red');
-
-% xTest = linspace(0.1,5,10000);
-% figure
-% plot(xTest, DrA*xTest+DrB*xTest.^(Pw/(Pw+Ps))+DrC*xTest.^(Ps/(Pw+Ps))+DrD)
-
-% figure
-% hold on
-% scatter(X,Y,2,closestTheory,'filled');
-% scatter(constX,constY,20,'red','filled');
-

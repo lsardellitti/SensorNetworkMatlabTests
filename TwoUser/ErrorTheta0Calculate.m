@@ -32,8 +32,4 @@ plot(testVals, errorVals)
 xlabel('P2') 
 ylabel('Error Probability')
 
-% [~, idx] = min(errorVals);
-% testVals(idx)
-% xBarVals(idx)
-
 setupValsOverride = false;

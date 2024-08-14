@@ -25,7 +25,6 @@ for testIndex = 1:length(testVals)
     elseif length(x) == 3
         xBarVals(testIndex, :) = x;
     else 
-        % This would be bad
         error('Unexpected number of x vals found')
     end
 end

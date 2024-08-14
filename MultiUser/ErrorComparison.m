@@ -1,7 +1,4 @@
 runningComparison = true; %#ok<NASGU>
-if exist('runningOnCAC','var') ~= 1
-    runningOnCAC = false;
-end
 
 Pmax = ones(1,5);
 Pstart = [1 0.1*ones(1,4)];
@@ -14,59 +11,37 @@ trials = 10000;
 errorProbs = zeros(1,length(testVals));
 powerUsage = zeros(2,length(testVals));
 
-if ~runningOnCAC
-    figure
-    hold on
-end
+figure
+hold on
 
 P = Pmax;
 ErrorTestingMulti;
 
-if ~runningOnCAC
-    plot(testVals, errorProbs)
-else
-    orthoError = errorProbs;
-end
+plot(testVals, errorProbs)
 
 P = Pmax;
 useMAP = false;
 ErrorCalcMultiUser;
 
-if ~runningOnCAC
-    plot(testVals, errorVals)
-else
-    maxMacError = errorVals;
-end
+plot(testVals, errorVals)
 
 P = Pmax;
 useMAP = true;
 ErrorCalcMultiUser;
 
-if ~runningOnCAC
-    plot(testVals, errorVals)
-else
-    maxMacMapError = errorVals;
-end
+plot(testVals, errorVals)
 
 P = Pmax;
 useMAP = false;
 PairwiseOptimization;
 
-if ~runningOnCAC
-    plot(testVals, errorVals)
-else
-    pairwiseError = errorVals;
-end
+plot(testVals, errorVals)
 
 P = Pmax;
 useMAP = true;
 PairwiseOptimization;
 
-if ~runningOnCAC
-    plot(testVals, errorVals)
-else
-    pairwiseMapError = errorVals;
-end
+plot(testVals, errorVals)
 
 for testIndex = 1:length(testVals)
     N0 = prod(Pmax)^(2/length(Pmax)) / 10^(testVals(testIndex)/10);
@@ -76,11 +51,7 @@ for testIndex = 1:length(testVals)
     powerUsage(1,testIndex) = sum(P.^2)/sum(Pmax.^2);
 end
 
-if ~runningOnCAC 
-    plot(testVals, errorProbs);
-else
-    algoError = errorProbs;
-end
+plot(testVals, errorProbs);
 
 for testIndex = 1:length(testVals)
     N0 = prod(Pmax)^(2/length(Pmax)) / 10^(testVals(testIndex)/10);
@@ -90,22 +61,15 @@ for testIndex = 1:length(testVals)
     powerUsage(2,testIndex) = sum(P.^2)/sum(Pmax.^2);
 end
 
-if runningOnCAC
-    % save data
-    algoMaxError = errorProbs;
-    fileName = sprintf('CACData/ErrCompP%0.2fE%sPMax%s.mat',P1,join(string(E)),join(string(Pmax)));
-    save(fileName, 'testVals', 'powerUsage', 'orthoError', 'maxMacError', 'maxMacMapError', 'pairwiseError', 'pairwiseMapError','algoError', 'algoMaxError');
-else
-    plot(testVals, errorProbs);
-    ylabel('Error Probability')
-    xlabel('SNR (dB)')
-    legend({'Ortho','MAC full','MAC full MAP','Pairwise MAC','Pairwise MAC MAP','MAC algo','MAC algo max'})
+plot(testVals, errorProbs);
+ylabel('Error Probability')
+xlabel('SNR (dB)')
+legend({'Ortho','MAC full','MAC full MAP','Pairwise MAC','Pairwise MAC MAP','MAC algo','MAC algo max'})
 
-    figure
-    plot(testVals, powerUsage);
-    ylabel('Power Usage Ratio')
-    xlabel('SNR (dB)')
-    legend({'MAC algo','MAC algo max'})
-end
+figure
+plot(testVals, powerUsage);
+ylabel('Power Usage Ratio')
+xlabel('SNR (dB)')
+legend({'MAC algo','MAC algo max'})
 
 runningComparison = false;
