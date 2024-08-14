@@ -5,16 +5,36 @@ numXVals = 1000;
 xSearchOffset = 5;
 
 % Values to test over
-PwVals = linspace(0.001,3,50);
-PsVals = linspace(0.001,3,50);
+PwVals = linspace(0.001,0.5,50);
+PsVals = linspace(0.001,0.5,50);
 
-errorVals = zeros(length(PsVals),length(PwVals));
+Pw = 1;
+PsMax = 1;
+
+errorVals = zeros(length(PsVals),length(PwVals))*nan;
 
 for PwIndex = 1:length(PwVals)
 for PsIndex = 1:length(PsVals)
-    % Comment out whichever parameter is being modified here in BaseSetup
-    Ps = PsVals(PsIndex);
-    Pw = PwVals(PwIndex);
+    % varying power
+%     Ps = PsVals(PsIndex);
+%     Pw = PwVals(PwIndex);
+
+    % varying epsilons
+    Es = PsVals(PsIndex);
+    Ew = PwVals(PwIndex);
+    
+    if Es < Ew
+        continue
+    end
+    
+    Ps = 0; %#ok<NASGU> % Set for robustness
+    BaseSetup;
+    if caseType == 3
+        Ps = min(PsTilde,PsMax); % need to check for imaginary
+    else
+        Ps = PsMax;
+    end
+    % end of varying epsilons
 
     BaseSetup;
 
@@ -32,6 +52,11 @@ hold on
 levels = 1000;
 fontSize = 12;
 lineSize = 1;
+
+% round up for visual niceness
+% floordevals = max(errorVals,0.005);
+% onesVals = errorVals./errorVals;
+% errorVals = floordevals./onesVals;
 
 set(gca,'ColorScale','log')
 contourf(PwVals, PsVals, errorVals, levels, 'LineColor', 'none','HandleVisibility','off')

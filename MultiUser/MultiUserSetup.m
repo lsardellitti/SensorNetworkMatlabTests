@@ -6,7 +6,10 @@ P0 = 1 - P1;
 N = 4;
 
 % crossover probabilities
-E = [0.1, 0.1, 0.3, 0.3];
+
+EProd = prod(E, "all")./E;
+EmProd = prod(1-E, "all")./(1-E);
+ThreshVals = [P0*EProd./(P1*EmProd + P0*EProd) ; P1*EProd./(P0*EmProd + P1*EProd)];
 
 if exist('setupValsOverride','var') ~= 1 || setupValsOverride == false
     % noise power
