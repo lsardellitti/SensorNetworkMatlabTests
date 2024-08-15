@@ -12,14 +12,6 @@ EProd = prod(E, "all")./E;
 EmProd = prod(1-E, "all")./(1-E);
 ThreshVals = [P0*EProd./(P1*EmProd + P0*EProd) ; P1*EProd./(P0*EmProd + P1*EProd)];
 
-if exist('setupValsOverride','var') ~= 1 || setupValsOverride == false
-    % noise power
-    N0 = 1;
-    
-    % signal powers (expressed as square root of mean power)
-    P = [1, 1, 1, 1];
-end
-
 % Noise standard deviation
 noistdv = sqrt(N0/2);
 

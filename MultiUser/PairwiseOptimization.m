@@ -1,5 +1,3 @@
-setupValsOverride = true; %#ok<NASGU>
-
 if ~exist('runningComparison','var') == 1 || runningComparison == false
     Pmax = [1 2 2 2];
     P = Pmax;
@@ -47,5 +45,3 @@ for testIndex = 1:length(testVals)
     errorVals(testIndex) = errorVal;
 
 end
-
-setupValsOverride = false;

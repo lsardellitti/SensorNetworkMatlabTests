@@ -1,5 +1,4 @@
 function [xMin, PMin, errorVal] = calculateOptimalPVal(P, PMax, N0, xSearchOffset, numVals, PVar)
-    setupValsOverride = true; %#ok<NASGU>
     P(PVar) = 0;
     MultiUserSetup;
     
@@ -63,6 +62,4 @@ function [xMin, PMin, errorVal] = calculateOptimalPVal(P, PMax, N0, xSearchOffse
             end
         end
     end
-    
-    setupValsOverride = false; %#ok<NASGU>
 end

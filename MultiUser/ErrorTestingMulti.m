@@ -1,4 +1,3 @@
-setupValsOverride = true; %#ok<NASGU>
 N0 = 1;
 
 if ~exist('runningComparison','var') == 1 || runningComparison == false
@@ -50,5 +49,3 @@ end
 
 figure
 plot(testVals, errorProbs);
-
-setupValsOverride = false;

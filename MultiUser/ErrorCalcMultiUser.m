@@ -1,4 +1,3 @@
-setupValsOverride = true; %#ok<NASGU>
 N0 = 1;
 
 if ~exist('runningComparison','var') == 1 || runningComparison == false
@@ -43,5 +42,3 @@ figure
 hold on
 plot(testVals, errorVals)
 ylabel('Error Probability')
-
-setupValsOverride = false;
