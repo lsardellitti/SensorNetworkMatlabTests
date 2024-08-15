@@ -1,4 +1,7 @@
 theta = pi/4;
+N0 = 1;
+Pw = 1;
+Ps = 1;
 BaseSetup;
 
 gridDensity = 150;

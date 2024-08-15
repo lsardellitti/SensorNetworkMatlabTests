@@ -1,22 +1,10 @@
 % source probability
-P1 = 0.3;
+P1 = 0.5;
 P0 = 1 - P1;
 
 % crossover probabilities
 Ew = 0.1;
 Es = 0.15;
-
-if exist('setupValsOverride','var') ~= 1 || setupValsOverride == false
-    % noise power
-    N0 = 1;
-    
-    % signal powers (expressed as square root of mean power)
-    Pw = 1;
-    Ps = 1;
-    
-    % rotation angle (radians)
-    theta = 0;
-end
 
 % Noise standard deviation
 noistdv = sqrt(N0/2);

@@ -1,6 +1,7 @@
 setupValsOverride = true; %#ok<NASGU>
-testVals = linspace(0.01,3,100);
+testVals = linspace(0.01,3,10);
 errorProbs = zeros(1,length(testVals));
+trials = 100000;
 
 for testIndex = 1:length(testVals)
     Pw = 1;
@@ -10,7 +11,6 @@ for testIndex = 1:length(testVals)
 
     BaseSetup;
 
-    trials = 1000000;
     noise = mvnrnd([0,0],eye(2)*(N0/2),trials);
     if sigma > 0
         fading = raylrnd(sigma,trials,1);

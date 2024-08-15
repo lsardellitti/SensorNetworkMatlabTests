@@ -1,6 +1,5 @@
 if ~exist('runningComparison','var') == 1 || runningComparison == false
     Pmax = [1 2 2 2];
-    P = Pmax;
     testVals = linspace(0,4,50);
     useMAP = false;
     
@@ -10,15 +9,14 @@ end
 
 errorVals = zeros(length(testVals),1);
 
-PRatio = P0/P1;
-PRatio2 = ((P0-P1)^2)/(P0*P1);
+PRatio = ((P0-P1)^2)/(P0*P1);
 
 for testIndex = 1:length(testVals)
-    N0 = prod(Pmax)^(2/n) / 10^(testVals(testIndex)/10);
+    N0 = prod(Pmax)^(2/length(P)) / 10^(testVals(testIndex)/10);
     
-    P(1) = Pmax(1);
+    P = Pmax;
     for i = 2:length(P)
-        P(i) = (N0*P0*P1/(2*P(1)))*log(((1-E(1)-E(i))^2-PRatio2*(1-E(1))*(1-E(i))*E(1)*E(i))/((E(i)-E(1))^2-PRatio2*(1-E(1))*(1-E(i))*E(1)*E(i)));
+        P(i) = (N0*P0*P1/(2*P(1)))*log(((1-E(1)-E(i))^2-PRatio*(1-E(1))*(1-E(i))*E(1)*E(i))/((E(i)-E(1))^2-PRatio*(1-E(1))*(1-E(i))*E(1)*E(i)));
         if ~isreal(P(i)) || P(i) > Pmax(i)
             P(i) = Pmax(i);
         end

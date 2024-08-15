@@ -15,7 +15,7 @@ for testIndex = 1:length(testVals)
     N0 = 1 / 10^(testVals(testIndex)/10);
     
     P = Pstart;
-    IncrementalOptimalPowerApproximation;
+    IncrementalOptimalPowerAlgorithm;
     errorProbs(1,testIndex) = errorVals(end);
     powerUsage(1,testIndex) = sum(P.^2)/sum(Pmax.^2);
     

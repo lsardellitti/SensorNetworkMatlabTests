@@ -2,8 +2,8 @@ setupValsOverride = true; %#ok<NASGU>
 
 if ~exist('runningComparison','var') == 1 || runningComparison == false
     N0 = 1;
-	Pmax = [1 10 10 10 10];
-    P = [1 0.1 0.1 0.1 0.1];
+	Pmax = [1 10 10 10];
+    P = [1 0.1 0.1 0.1];
     
     numXVals = 5000;
     xSearchOffset = 10;

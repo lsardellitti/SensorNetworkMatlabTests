@@ -1,4 +1,3 @@
-setupValsOverride = true; %#ok<NASGU>
 theta = 0;
 numXVals = 1000;
 xSearchOffset = 15;
@@ -61,6 +60,3 @@ ylabel('Error Probability')
 legendText = {'$$P_1 = P_1^{max}, P_2 = P_2^*(P_1^{max})$$','$$P_1 = P_1^{max}, P_2 = P_2^{max}$$','$$P_1 = P_1^{max}, P_2 =0$$','$$P_1 = 0, P_2 = P_2^{max}$$'};
 legend(legendText, 'Interpreter', 'latex','FontSize',10)
 title(sprintf('$$p_1 = %0.2f, \\epsilon_1 = %0.2f, \\epsilon_2 = %0.2f, P_1^{max} = %0.2f, P_2^{max} = %0.2f, Case %0.0f$$',P1,Ew,Es,PwMax,PsMax,caseType), 'Interpreter', 'latex')
-
-% Always set this back to false after using
-setupValsOverride = false;

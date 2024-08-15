@@ -3,10 +3,10 @@ P1 = 0.5;
 P0 = 1 - P1;
 
 % Number of Sensors
-N = 4;
+% N = 4;
 
 % crossover probabilities
-E = [0.1 0.1 0.2 0.2];
+% E = [0.1 0.1 0.2 0.2];
 
 EProd = prod(E, "all")./E;
 EmProd = prod(1-E, "all")./(1-E);

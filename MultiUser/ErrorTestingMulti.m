@@ -1,9 +1,7 @@
-N0 = 1;
-
 if ~exist('runningComparison','var') == 1 || runningComparison == false
     P = [1 2 2 2];
     testVals = linspace(-10,15,50);
-    trials = 10000;
+    trials = 50000;
 end
 
 errorProbs = zeros(1,length(testVals));
@@ -14,10 +12,10 @@ for testIndex = 1:length(testVals)
     MultiUserSetup;
 
     % Single channel
-%     noise = mvnrnd(0,N0/2,trials);
+    noise = mvnrnd(0,N0/2,trials);
     % Orthogonal channels
-    noise = mvnrnd(zeros(1,N),eye(N)*(N0/2),trials);
-    points = A(binWords+1).*P;
+%     noise = mvnrnd(zeros(1,N),eye(N)*(N0/2),trials);
+%     points = A(binWords+1).*P;
     % end of Orthogonal Channels
     
     source = rand(trials,1)<P1;

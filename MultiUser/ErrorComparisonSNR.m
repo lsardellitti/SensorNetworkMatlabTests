@@ -1,12 +1,12 @@
 runningComparison = true; %#ok<NASGU>
 
-Pmax = ones(1,5);
-Pstart = [1 0.1*ones(1,4)];
-testVals = linspace(-10,20,50);
+Pmax = ones(1,4);
+Pstart = [1 0.1*ones(1,3)];
+testVals = linspace(-10,20,5);
+trials = 10000;
 
 numXVals = 500;
 xSearchOffset = 50;
-trials = 10000;
 
 errorProbs = zeros(1,length(testVals));
 powerUsage = zeros(2,length(testVals));
@@ -46,7 +46,7 @@ plot(testVals, errorVals)
 for testIndex = 1:length(testVals)
     N0 = prod(Pmax)^(2/length(Pmax)) / 10^(testVals(testIndex)/10);
     P = Pstart;
-    IncrementalOptimalPowerApproximation;
+    IncrementalOptimalPowerAlgorithm;
     errorProbs(testIndex) = errorVals(end);
     powerUsage(1,testIndex) = sum(P.^2)/sum(Pmax.^2);
 end
@@ -56,7 +56,7 @@ plot(testVals, errorProbs);
 for testIndex = 1:length(testVals)
     N0 = prod(Pmax)^(2/length(Pmax)) / 10^(testVals(testIndex)/10);
     P = Pmax;
-    IncrementalOptimalPowerApproximation;
+    IncrementalOptimalPowerAlgorithm;
     errorProbs(testIndex) = errorVals(end);
     powerUsage(2,testIndex) = sum(P.^2)/sum(Pmax.^2);
 end

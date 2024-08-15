@@ -1,4 +1,3 @@
-setupValsOverride = true; %#ok<NASGU>
 theta = 0;
 N0 = 1;
 Pw = 1;
@@ -30,5 +29,3 @@ plot(testVals, errorVals)
 % plot(testVals, lowerBoundVals)
 xlabel('P2') 
 ylabel('Error Probability')
-
-setupValsOverride = false;
