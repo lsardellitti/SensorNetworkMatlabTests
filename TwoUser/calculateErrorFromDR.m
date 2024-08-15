@@ -28,15 +28,7 @@ function [errorVal, lowerBoundVal] = calculateErrorFromDR(x, points, P0, P1, pc0
         LBp1g01 = normcdf((a01 - x(3))/noistdv);
         LBp1g10 = normcdf((a10 - x(1))/noistdv);
         LBp1g00 = normcdf((a00 - x(1))/noistdv);
-%     elseif length(x) == 2
-%         p1g11 = normcdf((a11 - x(1))/noistdv) - normcdf((a11 - x(2))/noistdv);
-%         p1g01 = normcdf((a01 - x(1))/noistdv) - normcdf((a01 - x(2))/noistdv);
-%         p1g10 = normcdf((a10 - x(1))/noistdv) - normcdf((a10 - x(2))/noistdv);
-%         p1g00 = normcdf((a00 - x(1))/noistdv) - normcdf((a00 - x(2))/noistdv);
-%         
-%         LBp1g11 = p1g11;LBp1g01 = p1g01;LBp1g10 = p1g10;LBp1g00 = p1g00;
     else 
-        % This would be bad
         error('Unexpected number of x vals found')
     end
     

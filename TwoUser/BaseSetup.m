@@ -1,19 +1,10 @@
 % source probability
-P1 = 0.3;
+P1 = 0.5;
 P0 = 1 - P1;
 
 % crossover probabilities
 Ew = 0.1;
 Es = 0.15;
-
-if exist('setupValsOverride','var') ~= 1 || setupValsOverride == false
-    % noise power
-    N0 = 1;
-    
-    % signal powers (expressed as square root of mean power)
-    Pw = 1;
-    Ps = 1;
-end
 
 % Noise standard deviation
 noistdv = sqrt(N0/2);
@@ -38,7 +29,6 @@ end
 % constellation parmeters
 Aw = sqrt(P0/P1);
 As = sqrt(P0/P1);
-% theta = 0; % this should be set where base setup is used
 Bw = -sqrt((1 - P1*(Aw^2)) / P0);
 Bs = -sqrt((1 - P1*(As^2)) / P0);
 
@@ -111,17 +101,3 @@ dBar = P1*p00g1 - P0*p00g0;
 APwMinusXStar = (N0*sqrt(P0*P1)/(2*Ps))*log(aBar/-bBar) - ((P0-P1)/(2*sqrt(P0*P1)))*Ps;
 
 PsTilde = (N0*P0*P1/(2*Pw))*log(((1-Ew-Es)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es)/((Es-Ew)^2-PRatio2*(1-Ew)*(1-Es)*Ew*Es));
-
-DrA = (P1*p11g1 - P0*p11g0)*exp(-PRatio*(Pw+Ps)^2);
-DrB = (P1*p10g1 - P0*p10g0)*exp(-PRatio*(Pw-(1/PRatio)*Ps)^2);
-DrC = (P1*p01g1 - P0*p01g0)*exp(-(1/PRatio)*(Pw-PRatio*Ps)^2);
-DrD = (P1*p00g1 - P0*p00g0)*exp(-(1/PRatio)*(Pw+Ps)^2);
-% 
-% eqPDrA = P0*p10g0 - P1*p10g1;
-% eqPDrB = P1*p11g1 - P0*p11g0;
-% eqPDrC = P1*p00g1 - P0*p00g0;
-% eqPDrD = P0*p01g0 - P1*p01g1;
-% eqPDrK = exp(4*Pw*Ps);
-% 
-% eqPDrT = eqPDrK*(eqPDrA + eqPDrD);
-% testXBound = -(1/(4*Pw))*log((eqPDrT - sqrt(eqPDrT^2 - 4*eqPDrB*eqPDrC))/(2*eqPDrC));

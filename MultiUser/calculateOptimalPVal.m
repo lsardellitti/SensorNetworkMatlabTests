@@ -1,5 +1,4 @@
 function [xMin, PMin, errorVal] = calculateOptimalPVal(P, PMax, N0, xSearchOffset, numVals, PVar)
-    setupValsOverride = true; %#ok<NASGU>
     P(PVar) = 0;
     MultiUserSetup;
     
@@ -13,7 +12,6 @@ function [xMin, PMin, errorVal] = calculateOptimalPVal(P, PMax, N0, xSearchOffse
     xVals0 = calculateXvalsMulti(points, P0, P1, pc0, pc1, N0, xSearchMin, xSearchMax, numVals, repMat0);
     xVals1 = calculateXvalsMulti(points, P0, P1, pc0, pc1, N0, xSearchMin, xSearchMax, numVals, repMat1);
     
-    % Check for zero length
     t0Vals = zeros(length(xVals0), 1);
     t1Vals = zeros(length(xVals1), 1);
     
@@ -64,6 +62,4 @@ function [xMin, PMin, errorVal] = calculateOptimalPVal(P, PMax, N0, xSearchOffse
             end
         end
     end
-    
-    setupValsOverride = false; %#ok<NASGU>
 end

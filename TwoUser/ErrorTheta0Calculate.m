@@ -1,4 +1,3 @@
-setupValsOverride = true; %#ok<NASGU>
 theta = 0;
 N0 = 1;
 Pw = 1;
@@ -12,7 +11,6 @@ errorVals = zeros(length(testVals),1);
 lowerBoundVals = zeros(length(testVals),1);
 
 for testIndex = 1:length(testVals)
-    % Comment out whichever parameter is being modified here in BaseSetup
     Ps = testVals(testIndex);
 
     BaseSetup;
@@ -31,9 +29,3 @@ plot(testVals, errorVals)
 % plot(testVals, lowerBoundVals)
 xlabel('P2') 
 ylabel('Error Probability')
-
-% [~, idx] = min(errorVals);
-% testVals(idx)
-% xBarVals(idx)
-
-setupValsOverride = false;

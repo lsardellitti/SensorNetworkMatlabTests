@@ -1,25 +1,22 @@
-setupValsOverride = true; %#ok<NASGU>
-N0 = 1;
-
 if ~exist('runningComparison','var') == 1 || runningComparison == false
     P = [1 2 2 2];
     testVals = linspace(-10,15,50);
-    trials = 10000;
+    trials = 50000;
 end
 
 errorProbs = zeros(1,length(testVals));
 
 for testIndex = 1:length(testVals)
-%     P(1) = testVals(testIndex);
     N0 = prod(P)^(2/length(P)) / 10^(testVals(testIndex)/10);
     
     MultiUserSetup;
 
     % Single channel
-%     noise = mvnrnd(0,N0/2,trials);
+    noise = mvnrnd(0,N0/2,trials);
     % Orthogonal channels
-    noise = mvnrnd(zeros(1,N),eye(N)*(N0/2),trials);
-    points = A(binWords+1).*P;
+%     noise = mvnrnd(zeros(1,N),eye(N)*(N0/2),trials);
+%     points = A(binWords+1).*P;
+    % end of Orthogonal Channels
     
     source = rand(trials,1)<P1;
     channels = rand(trials,n)<E;
@@ -29,7 +26,7 @@ for testIndex = 1:length(testVals)
     recvPoints = sendPoints + noise;
     errors = 0;
     
-    % map decoding from original expression (for no fading)
+    % MAP Detection 
     for i = 1:trials
         distances = sum((recvPoints(i,:)-points).^2,2);
         weight0 = P0*(sum(pc0.*(exp(-distances/N0))));
@@ -50,5 +47,3 @@ end
 
 figure
 plot(testVals, errorProbs);
-
-setupValsOverride = false;
