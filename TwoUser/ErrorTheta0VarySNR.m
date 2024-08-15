@@ -20,13 +20,12 @@ errorVals = zeros(length(testVals),numSetups);
 
 for setup = 1:numSetups
 for testIndex = 1:length(testVals)
-    % Comment out whichever parameter is being modified here in BaseSetup
     N0 = PsMax*PwMax / 10^(testVals(testIndex)/10);
     
     % Power allocation setups
     if setup == 1
         Pw = PwMax;
-        Ps = 0; %#ok<NASGU> % Set for robustness
+        Ps = 0; %#ok<NASGU>
         BaseSetup;
         if caseType == 3
             Ps = min(PsTilde,PsMax); % need to check for imaginary
@@ -46,7 +45,7 @@ for testIndex = 1:length(testVals)
     
     errorVals(testIndex, setup) = errorVal;
 end
-end %setup loop
+end
 
 % Error Prob SNR Comparisons
 figure

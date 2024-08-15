@@ -19,6 +19,7 @@ for testIndex = 1:length(testVals)
     % Orthogonal channels
     noise = mvnrnd(zeros(1,N),eye(N)*(N0/2),trials);
     points = A(binWords+1).*P;
+    % end of Orthogonal Channels
     
     source = rand(trials,1)<P1;
     channels = rand(trials,n)<E;

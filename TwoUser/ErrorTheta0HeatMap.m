@@ -4,7 +4,6 @@ N0 = 1;
 numXVals = 1000;
 xSearchOffset = 5;
 
-% Values to test over
 PwVals = linspace(0.001,0.5,50);
 PsVals = linspace(0.001,0.5,50);
 

@@ -35,7 +35,6 @@ end
 case1ThreshVals = P1*(1-EwVals)./(EwVals+P1-2*P1*EwVals);
 case2ThreshVals = (EwVals*(1-P1))./(EwVals+P1-2*P1*EwVals);
 
-% Error heat map P1 P2
 figure
 hold on
 levels = 3;

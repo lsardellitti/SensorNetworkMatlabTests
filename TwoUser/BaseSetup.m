@@ -13,6 +13,9 @@ if exist('setupValsOverride','var') ~= 1 || setupValsOverride == false
     % signal powers (expressed as square root of mean power)
     Pw = 1;
     Ps = 1;
+    
+    % rotation angle (radians)
+    theta = 0;
 end
 
 % Noise standard deviation
@@ -38,7 +41,6 @@ end
 % constellation parmeters
 Aw = sqrt(P0/P1);
 As = sqrt(P0/P1);
-% theta = 0; % this should be set where base setup is used
 Bw = -sqrt((1 - P1*(Aw^2)) / P0);
 Bs = -sqrt((1 - P1*(As^2)) / P0);
 

@@ -11,7 +11,6 @@ testVals = linspace(0.001,3,1000);
 xBarVals = zeros(length(testVals),3);
 
 for testIndex = 1:length(testVals)
-    % Comment out whichever parameter is being modified here in BaseSetup
     Ps = testVals(testIndex);
 
     BaseSetup;
@@ -29,7 +28,6 @@ for testIndex = 1:length(testVals)
     end
 end
 
-% X Value Bounds Graph
 lineSize = 1;
 useManualTicks = false;
 
@@ -38,6 +36,8 @@ hold on
 plot(testVals,xBarVals(:,1), 'Color', "#9421a3", 'LineWidth', lineSize);
 plot(testVals,xBarVals(:,2), 'Color', "#e09119", 'LineWidth', lineSize);
 plot(testVals,xBarVals(:,3), 'Color', "#2ea332", 'LineWidth', lineSize);
+
+% Plot boundary lines for Ps
 if caseType ~= 1
     plot(testVals,Aw*testVals - APsMinusXStar, 'b', 'LineWidth', lineSize);
 end
