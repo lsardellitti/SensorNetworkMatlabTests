@@ -19,7 +19,7 @@ This script visualizes the detection regions for a specified parameter set. The 
 ## DecisionBoundaryPlotting
 This script visualizes the decision boundaries as a function of `Ps`. The parameters which can be changed are `N0`, `Pw` and `testVals`. In addition, other parameters can be varied by changing the code inside the testing loop.
 
-## CaseThreshPlots.m
+## CaseThresholdPlots.m
 This script visualizes the case types as a function of `Ew` and `Es`. The only parameter which can be changed is `P1`.
 
 ## ErrorTheta0Calculate.m
