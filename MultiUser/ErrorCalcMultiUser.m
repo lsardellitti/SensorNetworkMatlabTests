@@ -1,5 +1,5 @@
 if ~exist('runningComparison','var') == 1 || runningComparison == false
-    P = [1 2 2 2];
+    P = [1 1 1 1 1];
     testVals = linspace(-10,15,50);
     useMAP = false;
     
