@@ -1,7 +1,7 @@
 runningComparison = true; %#ok<NASGU>
 
-Pmax = ones(1,4);
-Pstart = [1 0.1*ones(1,3)];
+Pmax = ones(1,5);
+Pstart = [1 0.1*ones(1,4)];
 testVals = linspace(-10,20,5);
 trials = 10000;
 
